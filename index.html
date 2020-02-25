@@ -69,11 +69,11 @@
 
                 //Add some randomization to the writing animation
                 var delta = this.letterTypeDelay;
-                delta -= Math.random() * delta * 0.4;
+                delta -= Math.random() * delta * this.isDeleting ? 0 : 0.4;
 
                 //Double speed if deleting
                 if (this.isDeleting) {
-                    delta *= 0.65;
+                    delta *= 0.37;
                 }
 
                 //Set the deletion state
@@ -134,7 +134,7 @@
                 class="typewriter"
                 data-pre-type-delay="2000"
                 data-post-type-delay="3000"
-                data-letter-type-delay="500"
+                data-letter-type-delay="250"
                 data-typewriter-words="ipsum.;dolor sit.;amet."
                 data-type="array-basic"
             >
@@ -143,7 +143,7 @@
         <h2
             class="typewriter"
             data-post-type-delay="1500"
-            data-letter-type-delay="120"
+            data-letter-type-delay="90"
             data-typewriter-words="If a player would draw a card except the first one they draw in their draw step each turn, that player discards a card instead.;If the player discards a card this way, they draw a card.;If the player doesn’t discard a card this way, they put the top card of their library into their graveyard."
             data-type="array-basic"
         ></h2>
