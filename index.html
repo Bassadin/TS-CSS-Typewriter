@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Typewriter example</title>
+        <title>JS/CSS Typewriter example</title>
         <style>
             .typewriter {
                 color: #000;
@@ -38,6 +38,8 @@
                 this.postTypeDelay = parseInt(postTypeDelay, 10) || 2000;
                 this.letterTypeDelay = parseInt(letterTypeDelay, 10) || 170;
                 this.preTypeDelay = parseInt(preTypeDelay, 10) || 500;
+
+                //Internal vars
                 this.typedText = "";
                 this.tick();
                 this.isDeleting = false;
