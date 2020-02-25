@@ -95,34 +95,34 @@
             window.onload = function() {
                 //Search all dom elements with typewriter class to instatiate
                 var elements = document.getElementsByClassName("typewriter");
-                for (var i = 0; i < elements.length; i++) {
+                Array.from(elements).forEach(function(element) {
                     //Split string via semicolons
-                    var typewriterWords = elements[i]
+                    var typewriterWords = element
                         .getAttribute("data-typewriter-words")
                         .split(";");
                     //Read the post type delay
-                    var postTypeDelay = elements[i].getAttribute(
+                    var postTypeDelay = element.getAttribute(
                         "data-post-type-delay"
                     );
                     //Read the pre type delay
-                    var preTypeDelay = elements[i].getAttribute(
+                    var preTypeDelay = element.getAttribute(
                         "data-pre-type-delay"
                     );
                     //Read the letter type delay
-                    var letterTypeDelay = elements[i].getAttribute(
+                    var letterTypeDelay = element.getAttribute(
                         "data-letter-type-delay"
                     );
                     //Initialize typewriter object if typewriterWords aren't empty
                     if (typewriterWords) {
                         new TxtType(
-                            elements[i],
+                            element,
                             typewriterWords,
                             preTypeDelay,
                             postTypeDelay,
                             letterTypeDelay
                         );
                     }
-                }
+                });
             };
         </script>
     </head>
