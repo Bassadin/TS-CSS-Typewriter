@@ -34,9 +34,10 @@
                 this.typewriterWords = typewriterWords;
                 this.element = element;
                 this.currentCharacterIndex = 0;
+                //Attributes with default values
                 this.postTypeDelay = parseInt(postTypeDelay, 10) || 2000;
                 this.letterTypeDelay = parseInt(letterTypeDelay, 10) || 170;
-                this.preTypeDelay = parseInt(preTypeDelay, 10)|| 500;
+                this.preTypeDelay = parseInt(preTypeDelay, 10) || 500;
                 this.typedText = "";
                 this.tick();
                 this.isDeleting = false;
