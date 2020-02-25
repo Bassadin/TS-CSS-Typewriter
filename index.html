@@ -6,10 +6,14 @@
         <style>
             .typewriter {
                 color: #000;
-                border-right: 0.08em solid;
-                padding-right: 3.2px;
+            }
+
+            .caret {
                 animation: blinkingCursor 1.1s step-end 0s infinite;
                 border-right-color: #000;
+                color: #000;
+                border-right: 0.08em solid;
+                padding-right: 2px;
             }
 
             @keyframes blinkingCursor {
@@ -54,7 +58,7 @@
                 }
 
                 //Set the currently typed text as innerHTML
-                this.element.innerHTML = this.typedText;
+                this.element.innerHTML = this.typedText + '<span class="caret"><span>';
 
                 //Add some randomization to the writing animation
                 var delta = this.letterTypeDelay;
@@ -111,26 +115,28 @@
         </script>
     </head>
 
-    <body>
-        <h1>
-            Lorem
-            <span
-                class="typewriter"
-                data-typewriter-words="ipsum.;dolor dit.;amet."
-                data-type="array-basic"
-            >
-            </span>
-        </h1>
-        <h2>
-            <span
-                class="typewriter"
-                data-post-type-delay="1500"
-                data-letter-type-delay="80"
-                data-typewriter-words="If a player would draw a card except the first one they draw in their draw step each turn, that player discards a card instead.;If the player discards a card this way, they draw a card.;If the player doesn’t discard a card this way, they put the top card of their library into their graveyard."
-                data-type="array-basic"
-            >
-            </span>
-        </h2>
+    <body style="width:60%;margin:auto;">
+        <div style="text-align: center;">
+            <h1>
+                Lorem
+                <span
+                    class="typewriter"
+                    data-typewriter-words="ipsum.;dolor dit.;amet."
+                    data-type="array-basic"
+                >
+                </span>
+            </h1>
+            <h2>
+                <span
+                    class="typewriter"
+                    data-post-type-delay="1500"
+                    data-letter-type-delay="80"
+                    data-typewriter-words="If a player would draw a card except the first one they draw in their draw step each turn, that player discards a card instead.;If the player discards a card this way, they draw a card.;If the player doesn’t discard a card this way, they put the top card of their library into their graveyard."
+                    data-type="array-basic"
+                >
+                </span>
+            </h2>
+        </div>
         <p
             class="typewriter"
             data-letter-type-delay="40"
