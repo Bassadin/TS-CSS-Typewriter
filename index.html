@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Typewriter example</title>
         <style>
             .typewriter {
@@ -9,7 +10,7 @@
             }
 
             .caret {
-                animation: blinkingCursor 1.1s step-end 0s infinite;
+                animation: blinkingCursor 1s step-end 0s infinite;
                 border-right-color: #000;
                 color: #000;
                 border-right: 0.08em solid;
@@ -33,7 +34,7 @@
                 this.element = element;
                 this.currentCharacterIndex = 0;
                 this.postTypeDelay = parseInt(postTypeDelay, 10) || 2000;
-                this.letterTypeDelay = parseInt(letterTypeDelay, 10) || 150;
+                this.letterTypeDelay = parseInt(letterTypeDelay, 10) || 170;
                 this.typedText = "";
                 this.tick();
                 this.isDeleting = false;
@@ -58,15 +59,16 @@
                 }
 
                 //Set the currently typed text as innerHTML
-                this.element.innerHTML = this.typedText + '<span class="caret"><span>';
+                this.element.innerHTML =
+                    this.typedText + '<span class="caret"><span>';
 
                 //Add some randomization to the writing animation
                 var delta = this.letterTypeDelay;
-                delta = delta - (Math.random() * delta) / 1.3;
+                delta -= Math.random() * delta * 0.65;
 
                 //Double speed if deleting
                 if (this.isDeleting) {
-                    delta /= 2.5;
+                    delta *= 0.65;
                 }
 
                 //Set the deletion state
@@ -115,31 +117,27 @@
         </script>
     </head>
 
-    <body style="width:60%;margin:auto;">
-        <div style="text-align: center;">
-            <h1>
-                Lorem
-                <span
-                    class="typewriter"
-                    data-typewriter-words="ipsum.;dolor dit.;amet."
-                    data-type="array-basic"
-                >
-                </span>
-            </h1>
-            <h2>
-                <span
-                    class="typewriter"
-                    data-post-type-delay="1500"
-                    data-letter-type-delay="80"
-                    data-typewriter-words="If a player would draw a card except the first one they draw in their draw step each turn, that player discards a card instead.;If the player discards a card this way, they draw a card.;If the player doesn’t discard a card this way, they put the top card of their library into their graveyard."
-                    data-type="array-basic"
-                >
-                </span>
-            </h2>
-        </div>
+    <body>
+        <h1>
+            Lorem
+            <span
+                class="typewriter"
+                data-post-type-delay="3500"
+                data-typewriter-words="ipsum.;dolor sit.;amet."
+                data-type="array-basic"
+            >
+            </span>
+        </h1>
+        <h2
+            class="typewriter"
+            data-post-type-delay="1500"
+            data-letter-type-delay="120"
+            data-typewriter-words="If a player would draw a card except the first one they draw in their draw step each turn, that player discards a card instead.;If the player discards a card this way, they draw a card.;If the player doesn’t discard a card this way, they put the top card of their library into their graveyard."
+            data-type="array-basic"
+        ></h2>
         <p
             class="typewriter"
-            data-letter-type-delay="40"
+            data-letter-type-delay="35"
             data-typewriter-words="Nancy, seriously, you're gonna be so cool now, it's ridiculous. Bitchin' Why do we even need weapons anyway? We have her. Do you know anything about sensory deprivation tanks? Specifically how to build one? You're an idiot, Steve Harrington. You're beautiful, Nancy Wheeler.
 
         You act like you want me to be your friend and then you treat me like garbage. Let’s burn that lab to the ground. Mouth-breather. Oh... candy, leftovers, Eggo's... she really likes Eggo's. He’s a sensitive kid. Lonnie used to say he was queer. Called him a fag. Is he? He’s missing, is what he is!"
