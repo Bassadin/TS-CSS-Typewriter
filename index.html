@@ -19,11 +19,17 @@
             }
         </style>
         <script>
-            var TxtType = function(element, typewriterWords, postTypeDelay) {
+            var TxtType = function(
+                element,
+                typewriterWords,
+                postTypeDelay,
+                letterTypeDelay
+            ) {
                 this.typewriterWords = typewriterWords;
                 this.element = element;
                 this.currentCharacterIndex = 0;
                 this.postTypeDelay = parseInt(postTypeDelay, 10) || 2000;
+                this.letterTypeDelay = parseInt(letterTypeDelay, 10) || 150;
                 this.typedText = "";
                 this.tick();
                 this.isDeleting = false;
@@ -51,8 +57,8 @@
                 this.element.innerHTML = this.typedText;
 
                 //Add some randomization to the writing animation
-                var delta = 150;
-                delta = delta - (Math.random() * delta) / 2;
+                var delta = this.letterTypeDelay;
+                delta = delta - (Math.random() * delta) / 1.3;
 
                 //Double speed if deleting
                 if (this.isDeleting) {
@@ -87,12 +93,17 @@
                     var postTypeDelay = elements[i].getAttribute(
                         "data-post-type-delay"
                     );
+                    //Read the letter type delay
+                    var letterTypeDelay = elements[i].getAttribute(
+                        "data-letter-type-delay"
+                    );
                     //Initialize typewriter object if typewriterWords aren't empty
                     if (typewriterWords) {
                         new TxtType(
                             elements[i],
                             typewriterWords,
-                            postTypeDelay
+                            postTypeDelay,
+                            letterTypeDelay
                         );
                     }
                 }
@@ -105,7 +116,6 @@
             Lorem
             <span
                 class="typewriter"
-                data-post-type-delay="2000"
                 data-typewriter-words="ipsum.;dolor dit.;amet."
                 data-type="array-basic"
             >
@@ -115,10 +125,18 @@
             <span
                 class="typewriter"
                 data-post-type-delay="1500"
+                data-letter-type-delay="80"
                 data-typewriter-words="If a player would draw a card except the first one they draw in their draw step each turn, that player discards a card instead.;If the player discards a card this way, they draw a card.;If the player doesn’t discard a card this way, they put the top card of their library into their graveyard."
                 data-type="array-basic"
             >
             </span>
         </h2>
+        <p
+            class="typewriter"
+            data-letter-type-delay="40"
+            data-typewriter-words="Nancy, seriously, you're gonna be so cool now, it's ridiculous. Bitchin' Why do we even need weapons anyway? We have her. Do you know anything about sensory deprivation tanks? Specifically how to build one? You're an idiot, Steve Harrington. You're beautiful, Nancy Wheeler.
+
+        You act like you want me to be your friend and then you treat me like garbage. Let’s burn that lab to the ground. Mouth-breather. Oh... candy, leftovers, Eggo's... she really likes Eggo's. He’s a sensitive kid. Lonnie used to say he was queer. Called him a fag. Is he? He’s missing, is what he is!"
+        ></p>
     </body>
 </html>
