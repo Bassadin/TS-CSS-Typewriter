@@ -27,6 +27,7 @@
             var TxtType = function(
                 element,
                 typewriterWords,
+                preTypeDelay,
                 postTypeDelay,
                 letterTypeDelay
             ) {
@@ -35,6 +36,7 @@
                 this.currentCharacterIndex = 0;
                 this.postTypeDelay = parseInt(postTypeDelay, 10) || 2000;
                 this.letterTypeDelay = parseInt(letterTypeDelay, 10) || 170;
+                this.preTypeDelay = parseInt(preTypeDelay, 10)|| 500;
                 this.typedText = "";
                 this.tick();
                 this.isDeleting = false;
@@ -78,7 +80,7 @@
                 } else if (this.isDeleting && this.typedText === "") {
                     this.isDeleting = false;
                     this.currentCharacterIndex++;
-                    delta = 500;
+                    delta = this.preTypeDelay;
                 }
 
                 var that = this;
@@ -99,6 +101,10 @@
                     var postTypeDelay = elements[i].getAttribute(
                         "data-post-type-delay"
                     );
+                    //Read the pre type delay
+                    var preTypeDelay = elements[i].getAttribute(
+                        "data-pre-type-delay"
+                    );
                     //Read the letter type delay
                     var letterTypeDelay = elements[i].getAttribute(
                         "data-letter-type-delay"
@@ -108,6 +114,7 @@
                         new TxtType(
                             elements[i],
                             typewriterWords,
+                            preTypeDelay,
                             postTypeDelay,
                             letterTypeDelay
                         );
@@ -122,7 +129,9 @@
             Lorem
             <span
                 class="typewriter"
-                data-post-type-delay="3500"
+                data-pre-type-delay="2000"
+                data-post-type-delay="3000"
+                data-letter-type-delay="300"
                 data-typewriter-words="ipsum.;dolor sit.;amet."
                 data-type="array-basic"
             >
