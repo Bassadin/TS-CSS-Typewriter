@@ -5,14 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>JS/CSS Typewriter example</title>
         <style>
-            .typewriter {
-                color: #000;
-            }
-
             .caret {
                 animation: blinkingCursor 1s step-end 0s infinite;
-                border-right-color: #000;
-                color: #000;
                 border-right: 0.08em solid;
                 padding-right: 2px;
             }
@@ -26,6 +20,7 @@
         <script>
             var TxtType = function(
                 element,
+                elementType,
                 typewriterWords,
                 preTypeDelay,
                 postTypeDelay,
@@ -33,7 +28,8 @@
             ) {
                 this.typewriterWords = typewriterWords;
                 this.element = element;
-                this.currentCharacterIndex = 0;
+                this.elementType = elementType;
+                this.currentTypewriterWordsIndex = 0;
                 //Attributes with default values
                 this.postTypeDelay = parseInt(postTypeDelay, 10) || 2000;
                 this.letterTypeDelay = parseInt(letterTypeDelay, 10) || 170;
@@ -46,50 +42,59 @@
             };
 
             TxtType.prototype.tick = function() {
-                var i =
-                    this.currentCharacterIndex % this.typewriterWords.length;
-                var fullTxt = this.typewriterWords[i];
+                if (this.elementType == "array-basic") {
+                    var fullTxt = this.typewriterWords[this.currentTypewriterWordsIndex];
 
-                //Add/remove characters
-                if (this.isDeleting) {
-                    this.typedText = fullTxt.substring(
-                        0,
-                        this.typedText.length - 1
-                    );
+                    //Add / remove characters
+                    if (this.isDeleting) {
+                        this.typedText = fullTxt.substring(
+                            0,
+                            this.typedText.length - 1
+                        );
+                    } else {
+                        this.typedText = fullTxt.substring(
+                            0,
+                            this.typedText.length + 1
+                        );
+                    }
+
+                    //Set the currently typed text as innerHTML
+                    this.element.innerHTML =
+                        this.typedText + '<span class="caret"><span>';
+
+                    //Add some randomization to the writing animation (don't randomize when deleting)
+                    var delta = this.letterTypeDelay;
+                    delta -=
+                        Math.random() * delta * (this.isDeleting ? 0 : 0.4);
+
+                    //Double speed if deleting
+                    if (this.isDeleting) {
+                        delta *= 0.37;
+                    }
+
+                    //Set the deletion state
+                    if (!this.isDeleting && this.typedText === fullTxt) {
+                        delta = this.postTypeDelay;
+                        this.isDeleting = true;
+                    } else if (this.isDeleting && this.typedText === "") {
+                        this.isDeleting = false;
+                        this.currentTypewriterWordsIndex++;
+                        //Loop back to the first index
+                        if (this.currentTypewriterWordsIndex >= this.typewriterWords.length) {
+                            this.currentTypewriterWordsIndex = 0;
+                        }
+                        delta = this.preTypeDelay;
+                    }
+
+                    var that = this;
+                    setTimeout(function() {
+                        that.tick();
+                    }, delta);
                 } else {
-                    this.typedText = fullTxt.substring(
-                        0,
-                        this.typedText.length + 1
+                    error(
+                        "Invalid typewriter type '" + this.elementType + "'."
                     );
                 }
-
-                //Set the currently typed text as innerHTML
-                this.element.innerHTML =
-                    this.typedText + '<span class="caret"><span>';
-
-                //Add some randomization to the writing animation
-                var delta = this.letterTypeDelay;
-                delta -= Math.random() * delta * this.isDeleting ? 0 : 0.4;
-
-                //Double speed if deleting
-                if (this.isDeleting) {
-                    delta *= 0.37;
-                }
-
-                //Set the deletion state
-                if (!this.isDeleting && this.typedText === fullTxt) {
-                    delta = this.postTypeDelay;
-                    this.isDeleting = true;
-                } else if (this.isDeleting && this.typedText === "") {
-                    this.isDeleting = false;
-                    this.currentCharacterIndex++;
-                    delta = this.preTypeDelay;
-                }
-
-                var that = this;
-                setTimeout(function() {
-                    that.tick();
-                }, delta);
             };
 
             window.onload = function() {
@@ -112,10 +117,13 @@
                     var letterTypeDelay = element.getAttribute(
                         "data-letter-type-delay"
                     );
+                    //Read the letter type delay
+                    var elementType = element.getAttribute("data-element-type");
                     //Initialize typewriter object if typewriterWords aren't empty
                     if (typewriterWords) {
                         new TxtType(
                             element,
+                            elementType,
                             typewriterWords,
                             preTypeDelay,
                             postTypeDelay,
@@ -128,24 +136,25 @@
     </head>
 
     <body>
-        <h1>
+        <h1 style="color:#f00;">
             Lorem
             <span
                 class="typewriter"
-                data-pre-type-delay="2000"
-                data-post-type-delay="3000"
-                data-letter-type-delay="250"
+                data-pre-type-delay="1000"
+                data-post-type-delay="1000"
+                data-letter-type-delay="80"
                 data-typewriter-words="ipsum.;dolor sit.;amet."
-                data-type="array-basic"
+                data-element-type="array-basic"
             >
             </span>
         </h1>
         <h2
+            style="color:purple;"
             class="typewriter"
             data-post-type-delay="1500"
             data-letter-type-delay="90"
             data-typewriter-words="If a player would draw a card except the first one they draw in their draw step each turn, that player discards a card instead.;If the player discards a card this way, they draw a card.;If the player doesn’t discard a card this way, they put the top card of their library into their graveyard."
-            data-type="array-basic"
+            data-element-type="array-basic"
         ></h2>
         <p
             class="typewriter"
@@ -153,6 +162,7 @@
             data-typewriter-words="Nancy, seriously, you're gonna be so cool now, it's ridiculous. Bitchin' Why do we even need weapons anyway? We have her. Do you know anything about sensory deprivation tanks? Specifically how to build one? You're an idiot, Steve Harrington. You're beautiful, Nancy Wheeler.
 
         You act like you want me to be your friend and then you treat me like garbage. Let’s burn that lab to the ground. Mouth-breather. Oh... candy, leftovers, Eggo's... she really likes Eggo's. He’s a sensitive kid. Lonnie used to say he was queer. Called him a fag. Is he? He’s missing, is what he is!"
+            data-element-type="array-basic"
         ></p>
     </body>
 </html>
