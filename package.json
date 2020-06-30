@@ -1,0 +1,23 @@
+{
+    "name": "ts-css-typewriter",
+    "version": "1.1.0",
+    "description": "A simple typewriter animation with css and ts",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "^3.9.5"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/VADS/JS-CSS-Typewriter.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/VADS/JS-CSS-Typewriter/issues"
+    },
+    "homepage": "https://github.com/VADS/JS-CSS-Typewriter#readme"
+}
