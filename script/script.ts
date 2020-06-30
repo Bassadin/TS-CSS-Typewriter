@@ -84,6 +84,7 @@ namespace TsCssTypewriter {
 
                 let typer: TsTyper = this;
                 setTimeout(function () {
+                    //Call tick() again and again
                     typer.tick();
                 }, delta);
             } else {
