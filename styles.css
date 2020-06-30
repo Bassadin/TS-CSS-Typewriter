@@ -1,0 +1,11 @@
+.caret {
+    animation: blinkingCursor 1s step-end 0s infinite;
+    border-right: 0.08em solid;
+    padding-right: 2px;
+}
+
+@keyframes blinkingCursor {
+    50% {
+        border-right-color: rgba(0, 0, 0, 0);
+    }
+}
